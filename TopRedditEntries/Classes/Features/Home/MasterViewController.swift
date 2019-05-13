@@ -21,6 +21,7 @@ class MasterViewController: UITableViewController, MasterViewControllable {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadViewModel()
+        self.tableView.register(UINib.init(nibName: "RedditPostTableViewCell", bundle: nil), forCellReuseIdentifier: "RedditPostTableViewCell")
 
         if let split = splitViewController {
             let controllers = split.viewControllers
@@ -66,10 +67,15 @@ extension MasterViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RedditPostTableViewCell", for: indexPath) as! RedditPostTableViewCell
         guard let post = viewModelListener?.postFor(row: indexPath.row) else { return UITableViewCell() }
-        cell.textLabel!.text = post.title
+//        cell.textLabel!.text = post.title
+        cell.fillUI(with: post)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
 
