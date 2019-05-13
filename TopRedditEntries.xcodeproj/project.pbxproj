@@ -14,6 +14,7 @@
 		EF4CC7612289343D00B889FA /* RedditPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4CC75F2289343D00B889FA /* RedditPostTableViewCell.swift */; };
 		EF4CC7622289343D00B889FA /* RedditPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF4CC7602289343D00B889FA /* RedditPostTableViewCell.xib */; };
 		EF4CC765228946CD00B889FA /* UIImage+cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4CC764228946CD00B889FA /* UIImage+cache.swift */; };
+		EF4CC76722894BB300B889FA /* Date+format.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4CC76622894BB300B889FA /* Date+format.swift */; };
 		EFC261802287BB7100B3BE29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC2617F2287BB7100B3BE29 /* AppDelegate.swift */; };
 		EFC261822287BB7100B3BE29 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC261812287BB7100B3BE29 /* MasterViewController.swift */; };
 		EFC261842287BB7100B3BE29 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC261832287BB7100B3BE29 /* DetailViewController.swift */; };
@@ -50,6 +51,7 @@
 		EF4CC75F2289343D00B889FA /* RedditPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostTableViewCell.swift; sourceTree = "<group>"; };
 		EF4CC7602289343D00B889FA /* RedditPostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RedditPostTableViewCell.xib; sourceTree = "<group>"; };
 		EF4CC764228946CD00B889FA /* UIImage+cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+cache.swift"; sourceTree = "<group>"; };
+		EF4CC76622894BB300B889FA /* Date+format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+format.swift"; sourceTree = "<group>"; };
 		EFC2617C2287BB7100B3BE29 /* TopRedditEntries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TopRedditEntries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFC2617F2287BB7100B3BE29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFC261812287BB7100B3BE29 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				EF4CC764228946CD00B889FA /* UIImage+cache.swift */,
+				EF4CC76622894BB300B889FA /* Date+format.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				EFC261822287BB7100B3BE29 /* MasterViewController.swift in Sources */,
 				EF4CC7572288885600B889FA /* NetworkingManager.swift in Sources */,
 				EF4CC75E2289289D00B889FA /* RedditPostListingResponse.swift in Sources */,
+				EF4CC76722894BB300B889FA /* Date+format.swift in Sources */,
 				EF4CC75A2289217900B889FA /* FetchPopularPostsRequest.swift in Sources */,
 				EF4CC7612289343D00B889FA /* RedditPostTableViewCell.swift in Sources */,
 				EFC261802287BB7100B3BE29 /* AppDelegate.swift in Sources */,

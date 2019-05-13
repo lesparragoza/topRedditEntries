@@ -35,7 +35,7 @@ class RedditPostTableViewCell: UITableViewCell {
     
     func fillUI(with post: RedditPost){
         usernameLabel.text = post.author
-        timeLabel.text = String(post.entryDate)
+        timeLabel.text = Date(timeIntervalSince1970: TimeInterval(post.entryDate)).getDateSpecifications()
         commentsLabel.text = String(post.commentsCount) + " comments"
         readStatusView.isHidden = post.visited
         postTitleLabel.text = post.title

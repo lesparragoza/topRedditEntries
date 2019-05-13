@@ -24,6 +24,7 @@ class MasterViewController: UITableViewController, MasterViewControllable {
         self.tableView.register(UINib.init(nibName: "RedditPostTableViewCell", bundle: nil), forCellReuseIdentifier: "RedditPostTableViewCell")
 
         if let split = splitViewController {
+            splitViewController?.preferredDisplayMode = .allVisible
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
@@ -42,9 +43,10 @@ class MasterViewController: UITableViewController, MasterViewControllable {
             if let indexPath = tableView.indexPathForSelectedRow {
 //                let object = objects[indexPath.row] as! NSDate
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-//                controller.detailItem = object
+                controller.redditPost = viewModelListener?.postFor(row: indexPath.row)
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
+                
             }
         }
     }
@@ -69,13 +71,16 @@ extension MasterViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RedditPostTableViewCell", for: indexPath) as! RedditPostTableViewCell
         guard let post = viewModelListener?.postFor(row: indexPath.row) else { return UITableViewCell() }
-//        cell.textLabel!.text = post.title
         cell.fillUI(with: post)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showDetail", sender: nil)
     }
 }
 
