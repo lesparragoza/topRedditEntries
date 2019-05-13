@@ -9,6 +9,7 @@
 import Foundation
 
 struct RedditPost: Codable {
+    let id: String?
     let author: String?
     let title: String?
     let thumbnail: String?
@@ -17,11 +18,12 @@ struct RedditPost: Codable {
     let visited: Bool
     
     enum CodingKeys: String, CodingKey {
+        case id = "id"
         case author = "author"
         case title = "title"
         case thumbnail = "thumbnail"
         case entryDate = "created_utc"
         case commentsCount = "num_comments"
-        case visited = "postal_code"
+        case visited = "visited"
     }
 }
