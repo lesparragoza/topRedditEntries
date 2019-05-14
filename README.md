@@ -1,9 +1,10 @@
 # topRedditEntries
 
 This app fetchs the 50 most popular posts from reddit and uses CoreData to save them locally.
-It doesn't have any third party libraries nor dependency managers.
+It doesn't have any third party libraries nor dependency managers. 
 
 Features:
+- MVVM & dependency injection
 - Pull to Refresh
 - Saving pictures in the picture gallery from thumbnail
 - Indicator of unread/read post on tableview
