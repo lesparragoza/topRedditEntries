@@ -15,6 +15,8 @@ protocol MasterViewModelable {
     func getViewModelListener(viewController: DetailViewControllable, postFromRow: Int) -> DetailViewModelable
     func viewDidLoad()
     func deletePostFrom(row: Int)
+    func refreshData()
+    func dismissAllPosts()
 }
 
 class MasterViewModel: NSObject, MasterViewModelable {
@@ -46,11 +48,26 @@ class MasterViewModel: NSObject, MasterViewModelable {
         coreDataManager.delete(post: postFor(row: row))
     }
     
+    func dismissAllPosts() {
+        deleteAllPosts()
+        redditPostsList = []
+        viewControllerListener?.reloadTable()
+    }
+    
     func getViewModelListener(viewController: DetailViewControllable, postFromRow: Int) -> DetailViewModelable {
         return DetailViewModel(viewControllerListener: viewController, coreDataManager: coreDataManager, currentPost: redditPostsList[postFromRow])
     }
     
     func viewDidLoad() {
+        loadFetchedResultsController()
+    }
+    
+    func refreshData() {
+        deleteAllPosts()
+        loadFetchedResultsController()
+    }
+    
+    func loadFetchedResultsController() {
         do {
             try self.fetchedResultsController.performFetch()
             if fetchedResultsController.fetchedObjects?.isEmpty ?? true {
@@ -69,12 +86,17 @@ class MasterViewModel: NSObject, MasterViewModelable {
 // Private
 extension MasterViewModel {
     
+    private func deleteAllPosts() {
+        coreDataManager.deleteAllData()
+    }
+    
     private func fetchTopRedditPosts() {
         let request = FetchPopularPostsRequest()
         networkManager.request(request, responseType: RedditPostListingResponse.self) {[weak self] (response, error) in
             if error == nil, let responseData = response as? RedditPostListingResponse {
                 _ = responseData.data.children.map({ self?.coreDataManager.save(post: $0.data) })
-                    try? self?.fetchedResultsController.performFetch()
+                self?.coreDataManager.saveCurrentStack()
+                try? self?.fetchedResultsController.performFetch()
                 self?.fetchObjects()
             }
         }
@@ -104,6 +126,7 @@ extension MasterViewModel: NSFetchedResultsControllerDelegate {
             case .update:
                 guard let currentIndexPath = indexPath else { return }
                 guard let persistentRedditPost = anObject as? PersistentRedditPost else { return }
+                guard currentIndexPath.row < redditPostsList.count else { return }
                 redditPostsList[currentIndexPath.row] = RedditPost.createFrom(persistent: persistentRedditPost)
                 viewControllerListener?.updateCellFor(indexPath: currentIndexPath)
             case .move:

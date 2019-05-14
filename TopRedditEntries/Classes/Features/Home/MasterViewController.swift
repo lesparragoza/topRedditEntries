@@ -32,6 +32,7 @@ class MasterViewController: UITableViewController, MasterViewControllable {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshPostRedditData), for: .valueChanged)
         viewModelListener?.viewDidLoad()
     }
 
@@ -55,9 +56,14 @@ class MasterViewController: UITableViewController, MasterViewControllable {
         }
     }
     
+    @objc func refreshPostRedditData() {
+        viewModelListener?.refreshData()
+    }
+    
     func reloadTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
         }
     }
     
@@ -89,7 +95,9 @@ class MasterViewController: UITableViewController, MasterViewControllable {
             performSegue(withIdentifier: "showDetail", sender: nil)
         }
     }
-
+    @IBAction func dismissAllButtonPressed(_ sender: Any) {
+        viewModelListener?.dismissAllPosts()
+    }
 }
 
 // Table data source

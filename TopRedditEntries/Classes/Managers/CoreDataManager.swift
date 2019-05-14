@@ -13,12 +13,15 @@ protocol CoreDataManagerProtocol {
     func redditPostFetchedResultsController() -> NSFetchedResultsController<PersistentRedditPost>
     func save(post: RedditPost)
     func markAsVisited(post: RedditPost)
-    func delete(post: RedditPost) 
+    func delete(post: RedditPost)
+    func deleteAllData()
+    func saveCurrentStack()
 }
 
 class CoreDataManager: CoreDataManagerProtocol {
     
     private let persistentContainer = NSPersistentContainer(name: "TopRedditEntries")
+    private let serialQueue = DispatchQueue(label: "savingQueue")
     
     init() {
         persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
@@ -37,10 +40,15 @@ class CoreDataManager: CoreDataManagerProtocol {
     }
     
     func save(post: RedditPost) {
-        if let persistentPost = NSManagedObject(entity: PersistentRedditPost.entity(), insertInto: persistentContainer.viewContext) as? PersistentRedditPost {
-            post.fill(persistent: persistentPost)
-            try? persistentContainer.viewContext.save()
+        serialQueue.sync {
+            if let persistentPost = NSManagedObject(entity: PersistentRedditPost.entity(), insertInto: persistentContainer.viewContext) as? PersistentRedditPost {
+                post.fill(persistent: persistentPost)
+            }
         }
+    }
+    
+    func saveCurrentStack() {
+        try? persistentContainer.viewContext.save()
     }
     
     func markAsVisited(post: RedditPost) {
@@ -60,6 +68,17 @@ class CoreDataManager: CoreDataManagerProtocol {
         if let result = try? persistentContainer.viewContext.fetch(request), let persistentPost = result.first as? PersistentRedditPost {
             persistentContainer.viewContext.delete(persistentPost)
             try? persistentContainer.viewContext.save()
+        }
+    }
+    
+    func deleteAllData() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: PersistentRedditPost.entity().name!)
+        request.returnsObjectsAsFaults = false
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try persistentContainer.viewContext.execute(deleteRequest)
+        } catch let error as NSError {
+            print(error)
         }
     }
 }
