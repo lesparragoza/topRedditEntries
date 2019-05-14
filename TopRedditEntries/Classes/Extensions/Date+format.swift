@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 extension Date {
         
     func getTimeWith(_ timeUnits: Double) -> Int {
@@ -32,7 +33,7 @@ extension Date {
     }
     
     func timePassedDescription(timePassed timeInNumbers: Int, timeComponent: String) -> String {
-        let agoText = timeInNumbers == 1 ? "ago" : "s ago"
+        let agoText = timeInNumbers == 1 ? " ago" : "s ago"
         return "\(timeInNumbers)" + "\(timeComponent + agoText)"
     }
     

@@ -17,6 +17,8 @@ class RedditPostTableViewCell: UITableViewCell {
     @IBOutlet weak var postPic: UIImageView!
     @IBOutlet weak var readStatusView: UIView!
     @IBOutlet weak var postTitleLabel: UILabel!
+    @IBOutlet weak var imageCellWidthConstraint: NSLayoutConstraint!
+    let imageCellWidthDefaultConstraint = CGFloat(80.0)
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,11 +41,18 @@ class RedditPostTableViewCell: UITableViewCell {
         commentsLabel.text = String(post.commentsCount) + " comments"
         readStatusView.isHidden = post.visited
         postTitleLabel.text = post.title
-        if let url = post.thumbnail, let imageThumbnail = URL(string: url) {
+        if let url = post.thumbnail, url.verifyUrl(), let imageThumbnail = URL(string: url) {
+            imageCellWidthConstraint.constant = imageCellWidthDefaultConstraint
             postPic.load(url: imageThumbnail, placeholder: nil)
+            postPic.isHidden = false
+        } else {
+            imageCellWidthConstraint.constant = CGFloat(0.0)
+            postPic.isHidden = true
         }
     }
     
     @IBAction func dismissButtonPressed(_ sender: Any) {
     }
+    
+    
 }

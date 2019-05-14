@@ -130,6 +130,7 @@
             <connections>
                 <outlet property="backgroundCellView" destination="TlO-Jm-vgM" id="r8k-lh-Per"/>
                 <outlet property="commentsLabel" destination="Prj-eg-0Om" id="RSe-OD-7Tf"/>
+                <outlet property="imageCellWidthConstraint" destination="rgq-1M-KcC" id="ah0-Nt-yKK"/>
                 <outlet property="postPic" destination="4b7-sh-hEe" id="y74-YU-iuy"/>
                 <outlet property="postTitleLabel" destination="ZMU-vT-fv7" id="owT-zK-qms"/>
                 <outlet property="readStatusView" destination="joT-r3-d7O" id="Hzx-Vl-2vP"/>
