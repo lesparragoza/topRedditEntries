@@ -41,9 +41,9 @@ class MasterViewController: UITableViewController, MasterViewControllable {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-//                let object = objects[indexPath.row] as! NSDate
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.redditPost = viewModelListener?.postFor(row: indexPath.row)
+                let detailViewModel = viewModelListener?.getViewModelListener(viewController: controller, postFromRow: indexPath.row)
+                controller.viewModelListener = detailViewModel
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 
@@ -88,6 +88,6 @@ extension MasterViewController {
 extension MasterViewController {
     
     private func loadViewModel() {
-        viewModelListener = MasterViewModel(networkManager: NetworkManager(), viewControllerListener: self)
+        viewModelListener = MasterViewModel(networkManager: NetworkManager(), viewControllerListener: self, coreDataManager: CoreDataManager())
     }
 }

@@ -17,6 +17,9 @@
 		EF4CC76722894BB300B889FA /* Date+format.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4CC76622894BB300B889FA /* Date+format.swift */; };
 		EF6EF5F4228A4B3D00B47B7D /* String+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6EF5F3228A4B3D00B47B7D /* String+extensions.swift */; };
 		EF6EF5F6228A537A00B47B7D /* UIView+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6EF5F5228A537A00B47B7D /* UIView+extensions.swift */; };
+		EF6EF5F9228A5E6A00B47B7D /* TopRedditEntries.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF6EF5F7228A5E6A00B47B7D /* TopRedditEntries.xcdatamodeld */; };
+		EF6EF5FB228A62F400B47B7D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6EF5FA228A62F400B47B7D /* CoreDataManager.swift */; };
+		EF6EF5FD228A76DC00B47B7D /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6EF5FC228A76DC00B47B7D /* DetailViewModel.swift */; };
 		EFC261802287BB7100B3BE29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC2617F2287BB7100B3BE29 /* AppDelegate.swift */; };
 		EFC261822287BB7100B3BE29 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC261812287BB7100B3BE29 /* MasterViewController.swift */; };
 		EFC261842287BB7100B3BE29 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC261832287BB7100B3BE29 /* DetailViewController.swift */; };
@@ -56,6 +59,9 @@
 		EF4CC76622894BB300B889FA /* Date+format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+format.swift"; sourceTree = "<group>"; };
 		EF6EF5F3228A4B3D00B47B7D /* String+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extensions.swift"; sourceTree = "<group>"; };
 		EF6EF5F5228A537A00B47B7D /* UIView+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extensions.swift"; sourceTree = "<group>"; };
+		EF6EF5F8228A5E6A00B47B7D /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		EF6EF5FA228A62F400B47B7D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		EF6EF5FC228A76DC00B47B7D /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		EFC2617C2287BB7100B3BE29 /* TopRedditEntries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TopRedditEntries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFC2617F2287BB7100B3BE29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFC261812287BB7100B3BE29 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				EF4CC7562288885600B889FA /* NetworkingManager.swift */,
+				EF6EF5FA228A62F400B47B7D /* CoreDataManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -211,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				EFC261832287BB7100B3BE29 /* DetailViewController.swift */,
+				EF6EF5FC228A76DC00B47B7D /* DetailViewModel.swift */,
 			);
 			path = PostDetail;
 			sourceTree = "<group>";
@@ -228,6 +236,7 @@
 			children = (
 				EFC261882287BB7100B3BE29 /* Assets.xcassets */,
 				EFC2618A2287BB7100B3BE29 /* LaunchScreen.storyboard */,
+				EF6EF5F7228A5E6A00B47B7D /* TopRedditEntries.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -376,6 +385,8 @@
 				EF4CC75C2289252F00B889FA /* MasterViewModel.swift in Sources */,
 				EF4CC765228946CD00B889FA /* UIImage+cache.swift in Sources */,
 				EFC261842287BB7100B3BE29 /* DetailViewController.swift in Sources */,
+				EF6EF5FB228A62F400B47B7D /* CoreDataManager.swift in Sources */,
+				EF6EF5F9228A5E6A00B47B7D /* TopRedditEntries.xcdatamodeld in Sources */,
 				EFC261B72287C06B00B3BE29 /* RedditPost.swift in Sources */,
 				EF6EF5F4228A4B3D00B47B7D /* String+extensions.swift in Sources */,
 				EF6EF5F6228A537A00B47B7D /* UIView+extensions.swift in Sources */,
@@ -386,6 +397,7 @@
 				EF4CC75A2289217900B889FA /* FetchPopularPostsRequest.swift in Sources */,
 				EF4CC7612289343D00B889FA /* RedditPostTableViewCell.swift in Sources */,
 				EFC261802287BB7100B3BE29 /* AppDelegate.swift in Sources */,
+				EF6EF5FD228A76DC00B47B7D /* DetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,6 +726,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EF6EF5F7228A5E6A00B47B7D /* TopRedditEntries.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EF6EF5F8228A5E6A00B47B7D /* Model.xcdatamodel */,
+			);
+			currentVersion = EF6EF5F8228A5E6A00B47B7D /* Model.xcdatamodel */;
+			path = TopRedditEntries.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = EFC261742287BB7100B3BE29 /* Project object */;
 }

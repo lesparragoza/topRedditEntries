@@ -8,7 +8,11 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+protocol DetailViewControllable: class {
+    func imageFinishedSaving(withError error: Error?)
+}
+
+class DetailViewController: UIViewController, DetailViewControllable {
     
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -20,9 +24,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     let imageCellHeightDefaultConstraint = CGFloat(200.0)
     
-    var redditPost: RedditPost?
+    var viewModelListener: DetailViewModelable?
     
-    func fillUI() {
+    func fillUIWith(redditPost: RedditPost?) {
         guard let post = redditPost else { emptyView.isHidden = false; return }
         emptyView.isHidden = true
         usernameLabel.text = post.author
@@ -43,18 +47,18 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        fillUI()
+        fillUIWith(redditPost: viewModelListener?.getPost())
     }
     
     @IBAction func saveImageButtonPressed(_ sender: Any) {
         if let currentImage = imageView.image {
-            UIImageWriteToSavedPhotosAlbum(currentImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+            viewModelListener?.saveInPhotoLibrary(image: currentImage)
         } else {
             self.showAlertWithOkAction(andTitle: "Save error", message: "Your image couldn't be saved")
         }
     }
     
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+    func imageFinishedSaving(withError error: Error?) {
         if let error = error {
             self.showAlertWithOkAction(andTitle: "Save error", message: error.localizedDescription)
         } else {

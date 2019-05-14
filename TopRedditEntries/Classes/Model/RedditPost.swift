@@ -9,11 +9,11 @@
 import Foundation
 
 struct RedditPost: Codable {
-    let id: String?
+    let id: String
     let author: String?
     let title: String?
     let thumbnail: String?
-    let entryDate: Int
+    let entryDate: Int64
     let commentsCount: Int
     let visited: Bool
     
@@ -25,5 +25,19 @@ struct RedditPost: Codable {
         case entryDate = "created_utc"
         case commentsCount = "num_comments"
         case visited = "visited"
+    }
+    
+    static func createFrom(persistent object: PersistentRedditPost) -> RedditPost {
+        return RedditPost(id: object.id!, author: object.author, title: object.title, thumbnail: object.thumbnail, entryDate: object.entryDate, commentsCount: Int(object.commentsCount), visited: object.visited)
+    }
+    
+    func fill(persistent: PersistentRedditPost) {
+        persistent.id = self.id
+        persistent.author = self.author
+        persistent.title = self.title
+        persistent.thumbnail = self.thumbnail
+        persistent.entryDate = self.entryDate
+        persistent.commentsCount = Int32(self.commentsCount)
+        persistent.visited = self.visited
     }
 }
