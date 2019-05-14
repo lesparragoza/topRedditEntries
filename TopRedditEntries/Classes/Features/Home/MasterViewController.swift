@@ -10,6 +10,10 @@ import UIKit
 
 protocol MasterViewControllable: class {
     func reloadTable()
+    func beginUpdates()
+    func endUpdates()
+    func updateCellFor(indexPath: IndexPath)
+    func deleteCellFor(indexPath: IndexPath)
 }
 
 class MasterViewController: UITableViewController, MasterViewControllable {
@@ -56,6 +60,36 @@ class MasterViewController: UITableViewController, MasterViewControllable {
             self.tableView.reloadData()
         }
     }
+    
+    func beginUpdates() {
+        tableView.beginUpdates()
+    }
+    
+    func endUpdates() {
+        tableView.endUpdates()
+    }
+    
+    func updateCellFor(indexPath: IndexPath) {
+        if indexPath.row < viewModelListener?.numberOfPosts() ?? 0
+        {
+            guard let cell = tableView.cellForRow(at: indexPath) as? RedditPostTableViewCell else { return }
+            guard let post = viewModelListener?.postFor(row: indexPath.row) else { return }
+            cell.fillUI(with: post)
+        }
+    }
+    
+    func deleteCellFor(indexPath: IndexPath) {
+        updateDetailViewWithoutCellSelection(indexPath: indexPath)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+    
+    func updateDetailViewWithoutCellSelection(indexPath: IndexPath) {
+        if indexPath == tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: false)
+            performSegue(withIdentifier: "showDetail", sender: nil)
+        }
+    }
+
 }
 
 // Table data source
@@ -71,6 +105,7 @@ extension MasterViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RedditPostTableViewCell", for: indexPath) as! RedditPostTableViewCell
         guard let post = viewModelListener?.postFor(row: indexPath.row) else { return UITableViewCell() }
+        cell.delegate = self
         cell.fillUI(with: post)
         return cell
     }
@@ -89,5 +124,14 @@ extension MasterViewController {
     
     private func loadViewModel() {
         viewModelListener = MasterViewModel(networkManager: NetworkManager(), viewControllerListener: self, coreDataManager: CoreDataManager())
+    }
+}
+
+extension MasterViewController: RedditPostTableViewCellDelegate {
+    func deletePost(sender: UIButton) {
+        let point = tableView.convert(CGPoint(x: sender.bounds.midX, y: sender.bounds.midY), from: sender)
+        if let indexPath = tableView.indexPathForRow(at: point) {
+            viewModelListener?.deletePostFrom(row: indexPath.row)
+        }
     }
 }

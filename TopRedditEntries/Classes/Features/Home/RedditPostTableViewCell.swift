@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol RedditPostTableViewCellDelegate {
+    func deletePost(sender: UIButton)
+}
+
 class RedditPostTableViewCell: UITableViewCell {
 
     @IBOutlet weak var backgroundCellView: UIView!
@@ -19,6 +23,7 @@ class RedditPostTableViewCell: UITableViewCell {
     @IBOutlet weak var postTitleLabel: UILabel!
     @IBOutlet weak var imageCellWidthConstraint: NSLayoutConstraint!
     let imageCellWidthDefaultConstraint = CGFloat(80.0)
+    var delegate: RedditPostTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,8 +36,6 @@ class RedditPostTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func fillUI(with post: RedditPost){
@@ -49,10 +52,10 @@ class RedditPostTableViewCell: UITableViewCell {
             imageCellWidthConstraint.constant = CGFloat(0.0)
             postPic.isHidden = true
         }
+        readStatusView.isHidden = post.visited
     }
     
-    @IBAction func dismissButtonPressed(_ sender: Any) {
+    @IBAction func dismissButtonPressed(_ sender: UIButton) {
+        delegate?.deletePost(sender: sender)
     }
-    
-    
 }

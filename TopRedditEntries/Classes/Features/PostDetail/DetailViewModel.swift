@@ -13,6 +13,7 @@ import UIKit
 protocol DetailViewModelable {
     func getPost() -> RedditPost?
     func saveInPhotoLibrary(image: UIImage)
+    func updateVisitedStatus()
 }
 
 class DetailViewModel: NSObject, DetailViewModelable {
@@ -39,4 +40,10 @@ class DetailViewModel: NSObject, DetailViewModelable {
         viewControllerListener.imageFinishedSaving(withError: error)
     }
     
+    func updateVisitedStatus(){
+        if let post = redditPost {
+            coreDataManager.markAsVisited(post: post)
+        }
+    }
+
 }

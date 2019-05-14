@@ -138,10 +138,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="gBX-GW-oEp" firstAttribute="leading" secondItem="VUw-jc-0yf" secondAttribute="leading" id="0uc-S6-Z5i"/>
+                            <constraint firstItem="gBX-GW-oEp" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" id="0uc-S6-Z5i"/>
                             <constraint firstItem="VUw-jc-0yf" firstAttribute="trailing" secondItem="99O-CB-il0" secondAttribute="trailing" constant="16" id="1vi-me-qVL"/>
                             <constraint firstItem="riw-S3-vh0" firstAttribute="leading" secondItem="7hp-QM-0vT" secondAttribute="trailing" constant="6" id="6bF-6r-CXi"/>
-                            <constraint firstItem="VUw-jc-0yf" firstAttribute="bottom" secondItem="gBX-GW-oEp" secondAttribute="bottom" id="GG8-IQ-P2q"/>
+                            <constraint firstAttribute="bottom" secondItem="gBX-GW-oEp" secondAttribute="bottom" id="GG8-IQ-P2q"/>
                             <constraint firstItem="gBX-GW-oEp" firstAttribute="top" secondItem="VUw-jc-0yf" secondAttribute="top" id="GK8-3F-WZ2"/>
                             <constraint firstItem="BMi-vc-tjO" firstAttribute="leading" secondItem="Tgh-DD-xM9" secondAttribute="trailing" constant="16" id="MC7-V7-2Vb"/>
                             <constraint firstItem="7hp-QM-0vT" firstAttribute="leading" secondItem="99O-CB-il0" secondAttribute="leading" id="NaV-Kz-Tgy"/>
@@ -155,7 +155,7 @@
                             <constraint firstItem="OxD-GZ-b2d" firstAttribute="top" secondItem="y5l-5O-wNU" secondAttribute="bottom" constant="20" id="gSP-bo-tb8"/>
                             <constraint firstItem="y5l-5O-wNU" firstAttribute="centerX" secondItem="VUw-jc-0yf" secondAttribute="centerX" id="hJk-QZ-WNg"/>
                             <constraint firstItem="KQJ-cA-HJ5" firstAttribute="leading" secondItem="5lQ-8w-YBw" secondAttribute="trailing" constant="5" id="hg3-83-RgF"/>
-                            <constraint firstItem="VUw-jc-0yf" firstAttribute="trailing" secondItem="gBX-GW-oEp" secondAttribute="trailing" id="mlo-dQ-YSK"/>
+                            <constraint firstAttribute="trailing" secondItem="gBX-GW-oEp" secondAttribute="trailing" id="mlo-dQ-YSK"/>
                             <constraint firstItem="7hp-QM-0vT" firstAttribute="centerY" secondItem="riw-S3-vh0" secondAttribute="centerY" constant="-3" id="oJY-X1-KFu"/>
                             <constraint firstItem="y5l-5O-wNU" firstAttribute="top" secondItem="99O-CB-il0" secondAttribute="bottom" constant="16" id="qB8-w4-2xX"/>
                             <constraint firstItem="5lQ-8w-YBw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="riw-S3-vh0" secondAttribute="trailing" constant="16" id="rXe-WK-3G0"/>
@@ -265,6 +265,6 @@
         <image name="time" width="166.5" height="166.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Tll-UG-LXB"/>
+        <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
 </document>

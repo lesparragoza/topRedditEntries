@@ -14,6 +14,7 @@ protocol MasterViewModelable {
     func postFor(row: Int) -> RedditPost
     func getViewModelListener(viewController: DetailViewControllable, postFromRow: Int) -> DetailViewModelable
     func viewDidLoad()
+    func deletePostFrom(row: Int)
 }
 
 class MasterViewModel: NSObject, MasterViewModelable {
@@ -39,6 +40,10 @@ class MasterViewModel: NSObject, MasterViewModelable {
     
     func postFor(row: Int) -> RedditPost {
         return redditPostsList[row]
+    }
+    
+    func deletePostFrom(row: Int){
+        coreDataManager.delete(post: postFor(row: row))
     }
     
     func getViewModelListener(viewController: DetailViewControllable, postFromRow: Int) -> DetailViewModelable {
@@ -83,4 +88,31 @@ extension MasterViewModel {
 
 extension MasterViewModel: NSFetchedResultsControllerDelegate {
     
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        viewControllerListener?.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        if indexPath?.section == 0 {
+            switch type {
+            case .insert:
+                break
+            case .delete:
+                guard let currentIndexPath = indexPath else { return }
+                redditPostsList.remove(at: currentIndexPath.row)
+                viewControllerListener?.deleteCellFor(indexPath: currentIndexPath)
+            case .update:
+                guard let currentIndexPath = indexPath else { return }
+                guard let persistentRedditPost = anObject as? PersistentRedditPost else { return }
+                redditPostsList[currentIndexPath.row] = RedditPost.createFrom(persistent: persistentRedditPost)
+                viewControllerListener?.updateCellFor(indexPath: currentIndexPath)
+            case .move:
+                break
+            }
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        viewControllerListener?.endUpdates()
+    }
 }

@@ -48,6 +48,7 @@ class DetailViewController: UIViewController, DetailViewControllable {
     override func viewDidLoad() {
         super.viewDidLoad()
         fillUIWith(redditPost: viewModelListener?.getPost())
+        viewModelListener?.updateVisitedStatus()
     }
     
     @IBAction func saveImageButtonPressed(_ sender: Any) {
